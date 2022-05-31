@@ -64,10 +64,10 @@ def TrimSecondaryNameForData(dataset):
     name = name.replace("UL2018_MiniAODv2_JMENanoAODv9","DataUL18JMENanoV9") #CHECK
   #
   else:
-    name = name.replace("HIPM_UL2016_MiniAODv2","DataUL16APVNanoV9") #CHECK
-    name = name.replace("UL2016_MiniAODv2","DataUL16NanoV9") #CHECK
-    name = name.replace("UL2017_MiniAODv2","DataUL17NanoV9") #CHECK
-    name = name.replace("UL2018_MiniAODv2","DataUL18NanoV9") #CHECK
+    name = name.replace("HIPM_UL2016_MiniAODv2_NanoAODv9","DataUL16APVNanoV9") #CHECK
+    name = name.replace("UL2016_MiniAODv2_NanoAODv9","DataUL16NanoV9") #CHECK
+    name = name.replace("UL2017_MiniAODv2_NanoAODv9","DataUL17NanoV9") #CHECK
+    name = name.replace("UL2018_MiniAODv2_NanoAODv9","DataUL18NanoV9") #CHECK
   #
   name = name.replace("-v1","")# 
   name = name.replace("-v2","")# 

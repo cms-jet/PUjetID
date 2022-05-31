@@ -159,6 +159,5 @@ for i, dataset in enumerate(samplelist):
   
   print("requestName: "+requestName)
   print("outputDatasetTag: "+outputDatasetTag)
-  # crabCommand('submit', config = crab_config)
+  crabCommand('submit', config = crab_config)
   print("")
-
