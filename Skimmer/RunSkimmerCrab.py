@@ -6,7 +6,7 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 
 from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import *
 
-print "RunSkimmerCrab.py START"
+print("RunSkimmerCrab.py START")
 
 parser = argparse.ArgumentParser("")
 parser.add_argument('-jobNum','--jobNum', type=int, default=1 ) #NOTE: This will be given by condor on the grid. not by us
@@ -19,10 +19,10 @@ era  = args.era
 isMC = args.isMC
 dataStream = args.dataStream
 
-print "args = ", args
-print "era  = ", era
-print "isMC = ", isMC 
-print "dataStream = ", dataStream
+print("args = "+args)
+print("era  = "+era)
+print("isMC = "+str(isMC))
+print("dataStream = "+dataStream)
 
 isDoubleElecData=False
 isDoubleMuonData=False
@@ -34,8 +34,8 @@ if "EGamma" in dataStream:
 if "DoubleMuon" in dataStream:
   isDoubleMuonData = True
 
-print "isDoubleElecData = ", isDoubleElecData
-print "isDoubleMuonData = ", isDoubleMuonData
+print("isDoubleElecData = "+str(isDoubleElecData))
+print("isDoubleMuonData = "+str(isDoubleMuonData))
 
 if isMC and (isDoubleElecData or isDoubleMuonData):
   raise Exception('isMC flag cannot be set to true with isDoubleMuonData or isDoubleElecData. Please check! (isMC={},isDoubleMuonData={},isDoubleElecData={})'.format(isMC,isDoubleMuonData,isDoubleElecData))
@@ -57,11 +57,11 @@ selection = GetSelection(era)
 #
 modules = GetModules(era,isMC,dataStream)
 
-print "\n"
-print "Just printout what we will give to the PostProcessor"
-print "JSON      : ", jsonInput
-print "SELECTION : ", selection
-print "MODULES   : ", modules
+print("\n")
+print("Just printout what we will give to the PostProcessor")
+print("JSON      : "+jsonInput)
+print("SELECTION : "+selection)
+print("MODULES   : "+str(modules))
 
 # 
 # This takes care of converting the input files from CRAB
@@ -81,5 +81,5 @@ p=PostProcessor(
 )
 p.run()
 
-print "RunSkimmerCrab.py DONE"
+print("RunSkimmerCrab.py DONE")
 os.system("ls -lR")
