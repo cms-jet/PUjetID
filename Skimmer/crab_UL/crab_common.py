@@ -80,8 +80,8 @@ import sys
 import helpers
 from CRABAPI.RawCommand import crabCommand
 
-runTime_data = 360
-runTime_mc   = 480
+runTime_data = 300
+runTime_mc   = 420
 
 #
 # Read in txt file with list of samples

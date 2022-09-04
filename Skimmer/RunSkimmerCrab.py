@@ -19,7 +19,7 @@ era  = args.era
 isMC = args.isMC
 dataStream = args.dataStream
 
-print("args = "+args)
+print("args = "+str(args))
 print("era  = "+era)
 print("isMC = "+str(isMC))
 print("dataStream = "+dataStream)
@@ -59,7 +59,7 @@ modules = GetModules(era,isMC,dataStream)
 
 print("\n")
 print("Just printout what we will give to the PostProcessor")
-print("JSON      : "+jsonInput)
+print("JSON      : "+str(jsonInput))
 print("SELECTION : "+selection)
 print("MODULES   : "+str(modules))
 
