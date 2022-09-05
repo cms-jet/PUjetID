@@ -36,16 +36,16 @@ def TrimSecondaryNameForMC(dataset):
     name = name.replace("RunIISummer20UL18NanoAODv9-","MCUL18JMENanoV9")#RENAME CAMPAIGN. CHECK ITS UPDATED
     name = name.replace("20UL18JMENano_106X_upgrade2018_realistic_v16_L1v1","") #REMOVE GT. CHECK ITS UPDATED
   else:
-    name = name.replace("RunIISummer20UL16NanoAODAPVv9-","MCUL16APVJMENanoV9")#RENAME CAMPAIGN. CHECK ITS UPDATED
+    name = name.replace("RunIISummer20UL16NanoAODAPVv9-","MCUL16APVNanoAODv9")#RENAME CAMPAIGN. CHECK ITS UPDATED
     name = name.replace("106X_mcRun2_asymptotic_preVFP_v11","") #REMOVE GT. CHECK ITS UPDATED
     #
-    name = name.replace("RunIISummer20UL16NanoAODv9-","MCUL16JMENanoV9")#RENAME CAMPAIGN. CHECK ITS UPDATED
+    name = name.replace("RunIISummer20UL16NanoAODv9-","MCUL16NanoAODv9")#RENAME CAMPAIGN. CHECK ITS UPDATED
     name = name.replace("106X_mcRun2_asymptotic_v17","") #REMOVE GT. CHECK ITS UPDATED
     #
-    name = name.replace("RunIISummer20UL17NanoAODv9-","MCUL17JMENanoV9")#RENAME CAMPAIGN. CHECK ITS UPDATED
+    name = name.replace("RunIISummer20UL17NanoAODv9-","MCUL17NanoAODv9")#RENAME CAMPAIGN. CHECK ITS UPDATED
     name = name.replace("106X_mc2017_realistic_v9","") #REMOVE GT. CHECK ITS UPDATED
     #
-    name = name.replace("RunIISummer20UL18NanoAODv9-","MCUL18JMENanoV9")#RENAME CAMPAIGN. CHECK ITS UPDATED
+    name = name.replace("RunIISummer20UL18NanoAODv9-","MCUL18NanoAODv9")#RENAME CAMPAIGN. CHECK ITS UPDATED
     name = name.replace("106X_upgrade2018_realistic_v16_L1v1","") #REMOVE GT. CHECK ITS UPDATED
 
   name = name.replace("-v1","")# 
