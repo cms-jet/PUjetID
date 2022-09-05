@@ -6,9 +6,9 @@ ROOT.gROOT.SetBatch(True)
 ROOT.gStyle.SetPaintTextFormat("4.3f")
 ROOT.gROOT.SetStyle("Plain")
 
-resultsDir  = "./results_ULNanoV9_v1p4/"
-outputDir   = "./results_final_EffAndSf_ULNanoV9_v1p4/"
-outFileName = "PUID_SFAndEff_ULNanoV9_v1p4"
+resultsDir  = "../results_ULNanoV9_v1p4/"
+outputDir   = "../results_final_EffAndSf_ULNanoV9_v1p4/"
+outFileName = "PUID_SFAndEff_ULNanoV9_v1p4_NLO"
 printPNG    = False
 #
 #
@@ -17,7 +17,7 @@ def main():
   eras = [
     "UL2018",
     "UL2017",
-    "UL2016",
+    "UL2016NonAPV",
     "UL2016APV",
   ]
   wps = [

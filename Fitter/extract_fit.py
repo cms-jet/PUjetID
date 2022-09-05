@@ -475,46 +475,46 @@ def main():
     data_filename = ""
     mc_filename = ""
 
-    if year == "2016":
-        data_filename = inputDir+"/Histo_Data16.root"
-        mc_filename   = inputDir+"/Histo_MC16_DY_MG.root"
-        if useNLO:    mc_filename   = inputDir+"/Histo_MC16_DY_AMCNLO.root"
-        if useHerwig: mc_filename   = inputDir+"/Histo_MC16_DY_MG_HW.root"
-    elif year == "2017":
-        data_filename = inputDir+"/Histo_Data17.root"
-        mc_filename   = inputDir+"/Histo_MC17_DY_MG.root"
-        if useNLO:    mc_filename   = inputDir+"/Histo_MC17_DY_AMCNLO.root"
-        if useHerwig: mc_filename   = inputDir+"/Histo_MC17_DY_MG_HW.root"
-    elif year == "2018":
-        data_filename = inputDir+"/Histo_Data18.root"
-        mc_filename   = inputDir+"/Histo_MC18_DY_MG.root"
-        if useNLO:    mc_filename   = inputDir+"/Histo_MC18_DY_AMCNLO.root"
-        if useHerwig: mc_filename   = inputDir+"/Histo_MC18_DY_MG_HW.root"
+
+    if year == "UL2018":
+        data_filename = inputDir+"/Histo_DataUL18.root"
+        mc_filename   = inputDir+"/Histo_MCUL18_DY_MG.root"
+        if useNLO:    mc_filename   = inputDir+"/Histo_MCUL18_DY_AMCNLO.root"
+        # if useHerwig: mc_filename   = inputDir+"/Histo_MCUL18_DY_MG_HW.root"
+        # if usePowheg: mc_filename   = inputDir+"/Histo_MCUL18_DYToMuMu_PHG.root"
     elif year == "UL2017":
         data_filename = inputDir+"/Histo_DataUL17.root"
         mc_filename   = inputDir+"/Histo_MCUL17_DY_MG.root"
         if useNLO:    mc_filename   = inputDir+"/Histo_MCUL17_DY_AMCNLO.root"
         # if useHerwig: mc_filename   = inputDir+"/Histo_MCUL17_DY_MG_HW.root"
         # if usePowheg: mc_filename   = inputDir+"/Histo_MCUL17_DYToMuMu_PHG.root"
-    elif year == "UL2018":
-        data_filename = inputDir+"/Histo_DataUL18.root"
-        mc_filename   = inputDir+"/Histo_MCUL18_DY_MG.root"
-        if useNLO:    mc_filename   = inputDir+"/Histo_MCUL18_DY_AMCNLO.root"
-        # if useHerwig: mc_filename   = inputDir+"/Histo_MCUL18_DY_MG_HW.root"
-        # if usePowheg: mc_filename   = inputDir+"/Histo_MCUL18_DYToMuMu_PHG.root"
+    elif year == "UL2016NonAPV":
+        data_filename = inputDir+"/Histo_DataUL16NonAPV.root"
+        mc_filename   = inputDir+"/Histo_MCUL16NonAPV_DY_MG.root"
+        if useNLO:    mc_filename   = inputDir+"/Histo_MCUL16NonAPV_DY_AMCNLO.root"
+        # if useHerwig: mc_filename   = inputDir+"/Histo_MCUL16_DY_MG_HW.root"
+        # if usePowheg: mc_filename   = inputDir+"/Histo_MCUL16NonAPV_DYToMuMu_PHG.root"
     elif year == "UL2016APV":
         data_filename = inputDir+"/Histo_DataUL16APV.root"
         mc_filename   = inputDir+"/Histo_MCUL16APV_DY_MG.root"
         if useNLO:    mc_filename   = inputDir+"/Histo_MCUL16APV_DY_AMCNLO.root"
         # if useHerwig: mc_filename   = inputDir+"/Histo_MCUL16APV_DY_MG_HW.root"
-        if usePowheg: mc_filename   = inputDir+"/Histo_MCUL16APV_DYToMuMu_PHG.root"
-    elif year == "UL2016":
-        data_filename = inputDir+"/Histo_DataUL16.root"
-        mc_filename   = inputDir+"/Histo_MCUL16_DY_MG.root"
-        if useNLO:    mc_filename   = inputDir+"/Histo_MCUL16_DY_AMCNLO.root"
-        # if useHerwig: mc_filename   = inputDir+"/Histo_MCUL16_DY_MG_HW.root"
-        if usePowheg: mc_filename   = inputDir+"/Histo_MCUL16_DYToMuMu_PHG.root"
-
+        # if usePowheg: mc_filename   = inputDir+"/Histo_MCUL16APV_DYToMuMu_PHG.root"
+    elif year == "2018":
+        data_filename = inputDir+"/Histo_Data18.root"
+        mc_filename   = inputDir+"/Histo_MC18_DY_MG.root"
+        if useNLO:    mc_filename   = inputDir+"/Histo_MC18_DY_AMCNLO.root"
+        if useHerwig: mc_filename   = inputDir+"/Histo_MC18_DY_MG_HW.root"
+    elif year == "2017":
+        data_filename = inputDir+"/Histo_Data17.root"
+        mc_filename   = inputDir+"/Histo_MC17_DY_MG.root"
+        if useNLO:    mc_filename   = inputDir+"/Histo_MC17_DY_AMCNLO.root"
+        if useHerwig: mc_filename   = inputDir+"/Histo_MC17_DY_MG_HW.root"
+    elif year == "2016":
+        data_filename = inputDir+"/Histo_Data16.root"
+        mc_filename   = inputDir+"/Histo_MC16_DY_MG.root"
+        if useNLO:    mc_filename   = inputDir+"/Histo_MC16_DY_AMCNLO.root"
+        if useHerwig: mc_filename   = inputDir+"/Histo_MC16_DY_MG_HW.root"
 
     if syst != "":
         if  useHerwig or usePowheg:

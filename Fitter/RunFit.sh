@@ -1,3 +1,5 @@
+#!/bin/sh
+
 #
 # Directory path containing all the histogram rootfiles
 #
@@ -7,7 +9,6 @@ INDIR="../Analyzer/histos3D/"
 # Directory path for the output of the fits
 #
 OUTDIR="./results_ULNanoV9_v1p4/"
-
 
 #############################################################################
 #
@@ -31,9 +32,9 @@ function RunFitterNLOSyst {
 #
 ERAS=(
 UL2018
-UL2017
-UL2016
-UL2016APV
+# UL2017
+# UL2016NonAPV
+# UL2016APV
 )
 for YEAR in ${ERAS[@]}
 do
@@ -62,17 +63,18 @@ function RunFitterLOSyst {
 #
 #
 #
-# ERAS=(
-# UL2018
+ERAS=(
+UL2018
 # UL2017
+# UL2016NonAPV
 # UL2016APV
-# )
-# for YEAR in ${ERAS[@]}
-# do
-#   RunFitterLO ${INDIR} ${OUTDIR} ${YEAR}
-#   RunFitterLOSyst ${INDIR} ${OUTDIR} ${YEAR} jesTotalUp
-#   RunFitterLOSyst ${INDIR} ${OUTDIR} ${YEAR} jesTotalDown
-# done
+)
+for YEAR in ${ERAS[@]}
+do
+  RunFitterLO ${INDIR} ${OUTDIR} ${YEAR}
+  # RunFitterLOSyst ${INDIR} ${OUTDIR} ${YEAR} jesTotalUp
+  # RunFitterLOSyst ${INDIR} ${OUTDIR} ${YEAR} jesTotalDown
+done
 
 
 #############################################################################
@@ -80,17 +82,17 @@ function RunFitterLOSyst {
 #
 #
 #############################################################################
-function RunFitterPowheg {
-  python extract_fit.py --usePowheg --input ${1} --output ${2}/Powheg/${3}_WPLoose/  --year ${3} --wp Loose
-  python extract_fit.py --usePowheg --input ${1} --output ${2}/Powheg/${3}_WPMedium/ --year ${3} --wp Medium
-  python extract_fit.py --usePowheg --input ${1} --output ${2}/Powheg/${3}_WPTight/  --year ${3} --wp Tight
-}
+# function RunFitterPowheg {
+#   python extract_fit.py --usePowheg --input ${1} --output ${2}/Powheg/${3}_WPLoose/  --year ${3} --wp Loose
+#   python extract_fit.py --usePowheg --input ${1} --output ${2}/Powheg/${3}_WPMedium/ --year ${3} --wp Medium
+#   python extract_fit.py --usePowheg --input ${1} --output ${2}/Powheg/${3}_WPTight/  --year ${3} --wp Tight
+# }
 #
 #
 #
 # ERAS=(
+# UL2016NonAPV
 # UL2016APV
-# UL2016
 # )
 # for YEAR in ${ERAS[@]}
 # do
