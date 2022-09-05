@@ -13,9 +13,8 @@ request_cpus = 1
 arguments    = $(SAMPLE)
 queue SAMPLE from (   
 MCUL18_DY_MG
+MCUL18_DY_AMCATNLO
 MCUL18_TTTo2L2Nu
-MCUL17_DY_MG
-MCUL17_TTTo2L2Nu
 )
 
 +JobFlavour  = "microcentury"
@@ -23,5 +22,4 @@ request_cpus = 1
 arguments    = $(SAMPLE)
 queue SAMPLE from (   
 DataUL18_DoubleMuon
-DataUL17_DoubleMuon
 )
