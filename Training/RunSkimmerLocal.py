@@ -6,7 +6,7 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 
 from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import *
 
-print "RunSkimmerLocal.py START"
+print("RunSkimmerLocal.py START")
 
 parser = argparse.ArgumentParser("")
 parser.add_argument('--era',              type=str, default="")
@@ -22,10 +22,10 @@ outDir      = args.outDir
 isMC        = args.isMC
 dataStream  = args.dataStream
 
-print "args = ", args
-print "era  = ", era
-print "isMC = ", isMC 
-print "dataStream = ", dataStream
+print("args = "+str(args))
+print("era  = "+era)
+print("isMC = "+str(isMC))
+print("dataStream = "+dataStream)
 
 isDoubleElecData=False
 isDoubleMuonData=False
@@ -37,13 +37,14 @@ if "EGamma" in dataStream:
 if "DoubleMuon" in dataStream:
   isDoubleMuonData = True
 
-print "isDoubleElecData = ", isDoubleElecData
-print "isDoubleMuonData = ", isDoubleMuonData
+print("isDoubleElecData = "+ str(isDoubleElecData))
+print("isDoubleMuonData = "+ str(isDoubleMuonData))
 
 if isMC and (isDoubleElecData or isDoubleMuonData):
   raise Exception('isMC flag cannot be set to true with isDoubleMuonData or isDoubleElecData. Please check! (isMC={},isDoubleMuonData={},isDoubleElecData={})'.format(isMC,isDoubleMuonData,isDoubleElecData))
 
 CMSXROOTD="root://xrootd-cms.infn.it/"
+# CMSXROOTD="root://eoscms.cern.ch//eos/cms"
 files=[]
 
 if era == "UL2017":
@@ -61,9 +62,7 @@ elif era == "UL2018":
     ]
     elif isDoubleElecData: files = ["/store/data/Run2018C/EGamma/NANOAOD/UL2018_MiniAODv2_JMENanoAODv9-v1/250000/2F2B038D-F015-4147-BD8D-AE2C10394132.root"]
 
-
-
-# files = [CMSXROOTD+file for file in files]
+files = [CMSXROOTD+file for file in files]
 
 varTxtFileIn="./script/branches_in.txt"
 varTxtFileOut="./script/branches_out.txt"
@@ -85,11 +84,11 @@ selection = GetSelection(era)
 #
 modules = GetModules(era,isMC,dataStream)
 
-print "\n"
-print "Just printout what we will give to the PostProcessor"
-print "JSON      : ", jsonInput
-print "SELECTION : ", selection
-print "MODULES   : ", modules
+print("\n")
+print("Just printout what we will give to the PostProcessor")
+print("JSON      : "+str(jsonInput))
+print("SELECTION : "+selection)
+print("MODULES   : "+str(modules))
 
 maxEntries=None
 if maxEvents > 0:
@@ -110,4 +109,4 @@ p=PostProcessor(
 )
 p.run()
 
-print "RunSkimmerLocal.py DONE"
+print("RunSkimmerLocal.py DONE")
