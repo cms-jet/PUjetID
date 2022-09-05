@@ -2,14 +2,13 @@ import sys
 import os
 import glob
 import argparse
+import subprocess
+import datetime
 from collections import OrderedDict 
 
 import ROOT
-import VariableList
 import SampleList
 import SampleListUL
-
-import datetime
 
 ROOT.gROOT.SetBatch()
 ROOT.gROOT.LoadMacro("./Helpers.h")
@@ -23,14 +22,14 @@ def main(sample_name):
     EOSDIR=SampleListUL.EOSDIR
     NTUPDIR=SampleListUL.NTUPDIR
     xs = SampleListUL.Samples[sample_name].xs
-    if "MCUL17" in sample_name:
-      lumi = SampleListUL.lumi_UL2017
-    elif "MCUL18" in sample_name:
+    if "MCUL18" in sample_name:
       lumi = SampleListUL.lumi_UL2018
+    elif "MCUL17" in sample_name:
+      lumi = SampleListUL.lumi_UL2017
+    elif "MCUL16NonAPV" in sample_name:
+      lumi = SampleListUL.lumi_UL2016NonAPV
     elif "MCUL16APV" in sample_name:
       lumi = SampleListUL.lumi_UL2016APV
-    elif "MCUL16" in sample_name:
-      lumi = SampleListUL.lumi_UL2016
   else:
     crabFiles = SampleList.Samples[sample_name].crabFiles
     EOSURL=SampleList.EOSURL
@@ -128,26 +127,42 @@ def main(sample_name):
   # Snapshot tree
   #
   #############################################
-  #
-  # Save at EOS
-  #
-  prefix=EOSURL
-  prefix+=EOSDIR
-  prefix+=NTUPDIR
+
   #
   #
   #
   initialCount = df.Count()
   finalCount = df_filters["passNJetSelAll"].Count()
+  
   #
-  # Save events with exactly one jet
+  # Save events with exactly one jet.
+  # Store the tree in rootfile in TMPDIR
   #
   outTreeName="Events"
-  outTreeFileName = "%sntuple_%s.root" %(prefix,sample_name)
-  print("Save tree %s in file %s"%(outTreeName,outTreeFileName))
-  df_filters["passNJetSelAll"].Snapshot(outTreeName, outTreeFileName) 
+  TMPDIR=os.getenv("TMPDIR")
+  outFileName="ntuple_%s.root" %(sample_name)
+  outFilePathTemp = "%s/%s" %(TMPDIR,outFileName)
+
+  print("Save tree %s in file %s"%(outTreeName, outFilePathTemp))
+  df_filters["passNJetSelAll"].Snapshot(outTreeName, outFilePathTemp) 
+
   print("Initial NEvents in Tree:    "+str(initialCount.GetValue()))
   print("Final NEvents in Skim Tree: "+str(finalCount.GetValue()))
+
+  #
+  # Copy from TMPDIR and to save at EOS
+  #
+  print("=========================================================")
+  outFilePathFinal = "%s/%s" %(EOSURL+EOSDIR+NTUPDIR,outFileName)
+
+  print("Copying tree file to final destination: "+outFilePathFinal)
+  command = ["xrdcp", "-f", outFilePathTemp, outFilePathFinal]
+  subprocess.call(command) #call() is a py2 command
+
+  print("=========================================================")
+  print("Deleting file in TMPDIR: "+outFilePathTemp)
+  command = ["rm", "-fv", outFilePathTemp]
+  subprocess.call(command) #call() is a py2 command
 
 if __name__== "__main__":
   time_start = datetime.datetime.now()

@@ -10,7 +10,7 @@ def main():
   eras = [
     "UL2018",
     "UL2017",
-    "UL2016",
+    "UL2016NonAPV",
     "UL2016APV",
   ]
 

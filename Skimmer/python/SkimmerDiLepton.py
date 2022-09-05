@@ -19,6 +19,16 @@ class SkimmerDiLepton(Module):
       self.isDoubleElecData=isDoubleElecData
       self.isDoubleMuonData=isDoubleMuonData
     #
+    # Minimum pt for jets
+    #
+    self.jetPtCutMin = 20.
+    #
+    # Switch this on manually if you are running over JMENano
+    #
+    self.doSelForJMENano = False
+    if self.doSelForJMENano:
+      self.jetPtCutMin = 10. # JMENano can go as low as 10 GeV
+    #
     #
     #
     self.useMuonRocCor = True
@@ -256,8 +266,9 @@ class SkimmerDiLepton(Module):
       self.out.branch(jetSystPreFix+"nJetSel", "I")
       self.out.branch(jetSystPreFix+"nJetSelPt30Eta5p0", "I")
       self.out.branch(jetSystPreFix+"nJetSelPt20Eta2p4", "I")
-      # self.out.branch(jetSystPreFix+"nJetSelPt20Eta5p0", "I")#JMENano
-      # self.out.branch(jetSystPreFix+"nJetSelPt10Eta2p4", "I")#JMENano
+      if self.doSelForJMENano:
+        self.out.branch(jetSystPreFix+"nJetSelPt20Eta5p0", "I")#JMENano
+        self.out.branch(jetSystPreFix+"nJetSelPt10Eta2p4", "I")#JMENano
       for i in xrange(0,self.maxNSelJetsSaved):
         self.out.branch(jetSystPreFix+"jetSel"+str(i)+"_pt",         "F") 
         self.out.branch(jetSystPreFix+"jetSel"+str(i)+"_pt_nom",     "F")
@@ -630,11 +641,8 @@ class SkimmerDiLepton(Module):
     #
     jetPtName, jetMassName = self.getJetPtAndMassForSyst(jetSyst)
 
-    jetPtCutMin=20
-    # jetPtCutMin=10 # JMENano can go as low as 10 GeV
-
     event.jetsSel = [x for x in event.jetsAll 
-      if abs(x.eta) < 5. and getattr(x, jetPtName) > jetPtCutMin
+      if abs(x.eta) < 5. and getattr(x, jetPtName) > self.jetPtCutMin
       and (x.jetId & (1<<1)) # 'Tight' WP for jet ID
       and x.DeltaR(event.lep0_p4) > 0.4 and x.DeltaR(event.lep1_p4) > 0.4 
     ]
@@ -671,15 +679,16 @@ class SkimmerDiLepton(Module):
     #
     # Like above, but lower threshold. For JMENano
     #
-    # event.jetsSelPt20Eta5p0 = [x for x in event.jetsSel 
-    #   if abs(x.eta) < 5. and getattr(x, jetPtName) > 20.
-    # ]
-    # event.nJetSelPt20Eta5p0=len(event.jetsSelPt20Eta5p0)
+    if self.doSelForJMENano:
+      event.jetsSelPt20Eta5p0 = [x for x in event.jetsSel
+        if abs(x.eta) < 5. and getattr(x, jetPtName) > 20.
+      ]
+      event.nJetSelPt20Eta5p0=len(event.jetsSelPt20Eta5p0)
 
-    # event.jetsSelPt10Eta2p4 = [x for x in event.jetsSel 
-    #   if abs(x.eta) < 2.4 and getattr(x, jetPtName) > 10.
-    # ]
-    # event.nJetSelPt10Eta2p4=len(event.jetsSelPt10Eta2p4)
+      event.jetsSelPt10Eta2p4 = [x for x in event.jetsSel
+        if abs(x.eta) < 2.4 and getattr(x, jetPtName) > 10.
+      ]
+      event.nJetSelPt10Eta2p4=len(event.jetsSelPt10Eta2p4)
 
     #
     # The event pass selection
@@ -711,8 +720,9 @@ class SkimmerDiLepton(Module):
     self.out.fillBranch(jetSystPreFix+"nJetSel", -1)
     self.out.fillBranch(jetSystPreFix+"nJetSelPt30Eta5p0", -1)
     self.out.fillBranch(jetSystPreFix+"nJetSelPt20Eta2p4", -1)
-    # self.out.fillBranch(jetSystPreFix+"nJetSelPt20Eta5p0", -1) #JMENano
-    # self.out.fillBranch(jetSystPreFix+"nJetSelPt10Eta2p4", -1) #JMENano
+    if self.doSelForJMENano:
+      self.out.fillBranch(jetSystPreFix+"nJetSelPt20Eta5p0", -1) #JMENano
+      self.out.fillBranch(jetSystPreFix+"nJetSelPt10Eta2p4", -1) #JMENano
     for i in xrange(0, self.maxNSelJetsSaved):
       self.out.fillBranch(jetSystPreFix+"jetSel"+str(i)+"_pt",      -9.)
       self.out.fillBranch(jetSystPreFix+"jetSel"+str(i)+"_pt_nom",  -9.)
@@ -757,8 +767,9 @@ class SkimmerDiLepton(Module):
     self.out.fillBranch(jetSystPreFix+"nJetSel", event.nJetSel)
     self.out.fillBranch(jetSystPreFix+"nJetSelPt30Eta5p0", event.nJetSelPt30Eta5p0)
     self.out.fillBranch(jetSystPreFix+"nJetSelPt20Eta2p4", event.nJetSelPt20Eta2p4)
-    # self.out.fillBranch(jetSystPreFix+"nJetSelPt20Eta5p0", event.nJetSelPt20Eta5p0) #JMENano
-    # self.out.fillBranch(jetSystPreFix+"nJetSelPt10Eta2p4", event.nJetSelPt10Eta2p4) #JMENano
+    if self.doSelForJMENano:
+      self.out.fillBranch(jetSystPreFix+"nJetSelPt20Eta5p0", event.nJetSelPt20Eta5p0) #JMENano
+      self.out.fillBranch(jetSystPreFix+"nJetSelPt10Eta2p4", event.nJetSelPt10Eta2p4) #JMENano
     for i, jet in enumerate(event.jetsSel):
       if i >= self.maxNSelJetsSaved: break
       self.out.fillBranch(jetSystPreFix+"jetSel"+str(i)+"_pt",      getattr(jet, jetPtName))

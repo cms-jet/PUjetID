@@ -110,8 +110,10 @@ isMC = True if "MC" in sample else False
 #
 #
 inFileList=[]
+print("pathSampleToGlob:")
 for path in samplesInfoDict[sample]["path"]:
   pathSampleToGlob = path_inDir+path
+  print(pathSampleToGlob)
   inFileList += [EOSURL+f for f in glob.glob(pathSampleToGlob)]
 
 if len(inFileList) == 0:

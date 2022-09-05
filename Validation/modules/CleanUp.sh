@@ -1,4 +1,3 @@
-rm -rf *.d
-rm -rf *.so
-rm -rf *_ACLiC_dict_rdict.pcm
-
+rm -rf ./obj/*.d
+rm -rf ./obj/*.so
+rm -rf ./obj/*_ACLiC_dict_rdict.pcm

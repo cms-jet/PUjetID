@@ -43,7 +43,7 @@ def main():
   elif era  == "UL18":
     yearStr = "UL2018" 
     lumiStr = "59.8"
-  elif era  == "UL16":
+  elif era  == "UL16NonAPV":
     yearStr = "UL2016late" 
     lumiStr = "16.8"
   elif era  == "UL16APV":
@@ -79,22 +79,12 @@ def MakeValidation(era,yearStr,lumiStr):
     "files" : [
       path_inDir+"ntuple_MC"+era+"_WW.root",
       path_inDir+"ntuple_MC"+era+"_WZ.root",
-      # path_inDir+"ntuple_MC"+era+"_ZZ.root"
+      path_inDir+"ntuple_MC"+era+"_ZZ.root"
     ],
   }
-
-  if era == "UL16":
-    samples["Data"] = {
-      "files": [
-        path_inDir+"ntuple_DataUL16F_DoubleMuon.root",
-        path_inDir+"ntuple_DataUL16G_DoubleMuon.root",
-        path_inDir+"ntuple_DataUL16H_DoubleMuon.root",
-      ],
-    }
-  else:
-    samples["Data"] = {
-      "files": [f for f in glob.glob(path_inDir+"ntuple_Data"+era+"*_DoubleMuon.root")],
-    }
+  samples["Data"] = {
+    "files": [f for f in glob.glob(path_inDir+"ntuple_Data"+era+"*_DoubleMuon.root")],
+  }
 
   colorsDict = {
     "DY": ROOT.kGreen+1,
@@ -228,16 +218,16 @@ def MakeValidation(era,yearStr,lumiStr):
   
   ##
   ## Need to compile first in "./modules" directory 
-  ## to use these
+  ## to use these. The libraries are in "./modules/obj"
   ##
-  # ROOT.gSystem.Load("modules/Helpers_h.so")
-  # ROOT.gSystem.Load("modules/SFProducerPUJetId_h.so")
+  # ROOT.gSystem.Load("modules/obj/Helpers_h.so")
+  # ROOT.gSystem.Load("modules/obj/SFProducerPUJetId_h.so")
 
   def SetupSFProducerPUJetId(fileSF, era):
     eraName = ""
     if era == "UL18": eraName = "UL2018"
     elif era == "UL17": eraName = "UL2017"
-    elif era == "UL16": eraName = "UL2016"
+    elif era == "UL16NonAPV": eraName = "UL2016"
     elif era == "UL16APV": eraName = "UL2016APV"
 
     ROOT.gInterpreter.Declare('std::unique_ptr<SFProducerPUJetId> puIdSF_Loose(new SFProducerPUJetId(\"'+eraName+'\",\"'+fileSF+'\",\"L\"));')
@@ -253,7 +243,7 @@ def MakeValidation(era,yearStr,lumiStr):
 
   def ApplyBaselineSelection(df, era, isMC=True):
     #
-    # Event-level flags or
+    # Event-level flags
     #
     df = df.Define("isMuMu","(abs(lep0_pdgId)==13)&&(abs(lep1_pdgId)==13)")
     #
@@ -514,13 +504,12 @@ def MakeValidation(era,yearStr,lumiStr):
       for hist in histoInfos:
         histograms[sample][cut][hist] = histo1D[sample][cut][hist].GetValue()
 
-  ####################################################
+  ######################################################
   #
-  #
+  # Make the plots
   #
   ######################################################
   outDir="./plots_pujetid_datamc/"
-
 
   def MakePlot(histograms, histoInfos, cutName="", histoName="", dataName="", mcList=[], year="", lumi="", outDir=""):
     mcListTemp = list(mcList)

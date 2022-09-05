@@ -75,6 +75,15 @@ class SkimmerDiLeptonForTraining(Module):
     self.out.branch("JetSel_puIdDisc",       "F", lenVar=lenVarJet)
     self.out.branch("JetSel_qgl",            "F", lenVar=lenVarJet)
     self.out.branch("JetSel_nConst",         "I", lenVar=lenVarJet)
+    self.out.branch("JetSel_nConstChHads",   "I", lenVar=lenVarJet)
+    self.out.branch("JetSel_nConstNeuHads",  "I", lenVar=lenVarJet)
+    self.out.branch("JetSel_nConstHFHads",   "I", lenVar=lenVarJet)
+    self.out.branch("JetSel_nConstHFEMs",    "I", lenVar=lenVarJet)
+    self.out.branch("JetSel_nConstMuons",    "I", lenVar=lenVarJet)
+    self.out.branch("JetSel_nConstElecs",    "I", lenVar=lenVarJet)
+    self.out.branch("JetSel_nConstPhotons",  "I", lenVar=lenVarJet)
+    self.out.branch("JetSel_nConstCharged",  "I", lenVar=lenVarJet)
+    self.out.branch("JetSel_nConstNeutral",  "I", lenVar=lenVarJet)
     self.out.branch("JetSel_chEmEF",         "F", lenVar=lenVarJet)
     self.out.branch("JetSel_chHEF",          "F", lenVar=lenVarJet)
     self.out.branch("JetSel_neEmEF",         "F", lenVar=lenVarJet)
@@ -129,6 +138,15 @@ class SkimmerDiLeptonForTraining(Module):
     self.out.branch("JetPuppiSel_mass",           "F", lenVar=lenVarJetPuppi)
     self.out.branch("JetPuppiSel_jetId",          "I", lenVar=lenVarJetPuppi)
     self.out.branch("JetPuppiSel_nConst",         "I", lenVar=lenVarJetPuppi)
+    self.out.branch("JetPuppiSel_nConstChHads",   "I", lenVar=lenVarJetPuppi)
+    self.out.branch("JetPuppiSel_nConstNeuHads",  "I", lenVar=lenVarJetPuppi)
+    self.out.branch("JetPuppiSel_nConstHFHads",   "I", lenVar=lenVarJetPuppi)
+    self.out.branch("JetPuppiSel_nConstHFEMs",    "I", lenVar=lenVarJetPuppi)
+    self.out.branch("JetPuppiSel_nConstMuons",    "I", lenVar=lenVarJetPuppi)
+    self.out.branch("JetPuppiSel_nConstElecs",    "I", lenVar=lenVarJetPuppi)
+    self.out.branch("JetPuppiSel_nConstPhotons",  "I", lenVar=lenVarJetPuppi)
+    self.out.branch("JetPuppiSel_nConstCharged",  "I", lenVar=lenVarJetPuppi)
+    self.out.branch("JetPuppiSel_nConstNeutral",  "I", lenVar=lenVarJetPuppi)
     self.out.branch("JetPuppiSel_chEmEF",         "F", lenVar=lenVarJetPuppi)
     self.out.branch("JetPuppiSel_chHEF",          "F", lenVar=lenVarJetPuppi)
     self.out.branch("JetPuppiSel_neEmEF",         "F", lenVar=lenVarJetPuppi)
@@ -487,7 +505,6 @@ class SkimmerDiLeptonForTraining(Module):
 
     event.jetsSel = [x for x in event.jetsAll 
       if abs(x.eta) < 5. and x.pt > 10.
-      and (x.jetId & (1<<1)) # 'Tight' WP for jet ID
       and x.DeltaR(event.lep0_p4) > 0.4 and x.DeltaR(event.lep1_p4) > 0.4 
     ]
     event.jetsSel.sort(key=lambda x: x.pt, reverse=True)
@@ -518,7 +535,6 @@ class SkimmerDiLeptonForTraining(Module):
 
     event.jetsPuppiSel = [x for x in event.jetsPuppiAll 
       if abs(x.eta) < 5. and x.pt > 10. 
-      and (x.jetId & (1<<1)) # 'Tight' WP for jet ID
       and x.DeltaR(event.lep0_p4) > 0.4 and x.DeltaR(event.lep1_p4) > 0.4 
     ]
     event.jetsPuppiSel.sort(key=lambda x:x.pt , reverse=True)
@@ -569,6 +585,15 @@ class SkimmerDiLeptonForTraining(Module):
       self.out.fillBranch(jetColl+"_puIdDisc",      []) 
       self.out.fillBranch(jetColl+"_qgl",           []) 
     self.out.fillBranch(jetColl+"_nConst",          [])
+    self.out.fillBranch(jetColl+"_nConstChHads",    [])
+    self.out.fillBranch(jetColl+"_nConstNeuHads",   [])
+    self.out.fillBranch(jetColl+"_nConstHFHads",    [])
+    self.out.fillBranch(jetColl+"_nConstHFEMs",     [])
+    self.out.fillBranch(jetColl+"_nConstMuons",     [])
+    self.out.fillBranch(jetColl+"_nConstElecs",     [])
+    self.out.fillBranch(jetColl+"_nConstPhotons",   [])
+    self.out.fillBranch(jetColl+"_nConstCharged",   [])
+    self.out.fillBranch(jetColl+"_nConstNeutral",   [])
     self.out.fillBranch(jetColl+"_chEmEF",          [])
     self.out.fillBranch(jetColl+"_chHEF",           [])
     self.out.fillBranch(jetColl+"_neEmEF",          [])
@@ -625,6 +650,17 @@ class SkimmerDiLeptonForTraining(Module):
     jet_qgl = []
 
     jet_nConstituents = []
+
+    jet_nConstChHads = []
+    jet_nConstNeuHads = []
+    jet_nConstHFHads = []
+    jet_nConstHFEMs = []
+    jet_nConstElecs = []
+    jet_nConstPhotons = []
+    jet_nConstMuons = []
+    jet_nConstCharged = []
+    jet_nConstNeutral = []
+
     jet_chEmEF = []
     jet_chHEF = []
     jet_neEmEF = []
@@ -693,6 +729,15 @@ class SkimmerDiLeptonForTraining(Module):
         jet_puIdDisc.append(jet.puIdDisc)
         jet_qgl.append(jet.qgl)
       jet_nConstituents.append(jet.nConstituents)
+      jet_nConstChHads.append(jet.nConstChHads)
+      jet_nConstNeuHads.append(jet.nConstNeuHads)
+      jet_nConstHFHads.append(jet.nConstHFHads)
+      jet_nConstHFEMs.append(jet.nConstHFEMs)
+      jet_nConstMuons.append(jet.nConstMuons)
+      jet_nConstElecs.append(jet.nConstElecs)
+      jet_nConstPhotons.append(jet.nConstPhotons)
+      jet_nConstCharged.append(jet.nConstChHads + jet.nConstElecs + jet.nConstMuons)
+      jet_nConstNeutral.append(jet.nConstNeuHads + jet.nConstPhotons + jet.nConstHFHads + jet.nConstHFEMs)
       jet_chEmEF.append(jet.chEmEF)
       jet_chHEF.append(jet.chHEF)
       jet_neEmEF.append(jet.neEmEF)
@@ -774,6 +819,15 @@ class SkimmerDiLeptonForTraining(Module):
       self.out.fillBranch(jetColl+"_puIdDisc",        jet_puIdDisc)
       self.out.fillBranch(jetColl+"_qgl",           jet_qgl)
     self.out.fillBranch(jetColl+"_nConst",          jet_nConstituents)
+    self.out.fillBranch(jetColl+"_nConstChHads",    jet_nConstChHads)
+    self.out.fillBranch(jetColl+"_nConstNeuHads",   jet_nConstNeuHads)
+    self.out.fillBranch(jetColl+"_nConstHFHads",    jet_nConstHFHads)
+    self.out.fillBranch(jetColl+"_nConstHFEMs",     jet_nConstHFEMs)
+    self.out.fillBranch(jetColl+"_nConstMuons",     jet_nConstElecs)
+    self.out.fillBranch(jetColl+"_nConstElecs",     jet_nConstPhotons)
+    self.out.fillBranch(jetColl+"_nConstPhotons",   jet_nConstMuons)
+    self.out.fillBranch(jetColl+"_nConstCharged",   jet_nConstCharged)
+    self.out.fillBranch(jetColl+"_nConstNeutral",   jet_nConstNeutral)
     self.out.fillBranch(jetColl+"_chEmEF",          jet_chEmEF)
     self.out.fillBranch(jetColl+"_chHEF",           jet_chHEF)
     self.out.fillBranch(jetColl+"_neEmEF",          jet_neEmEF)
